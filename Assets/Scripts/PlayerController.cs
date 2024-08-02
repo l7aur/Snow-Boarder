@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb2D;
     private SurfaceEffector2D sf2D;
 
+    private bool controlActive = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,8 +22,16 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RotatePlayer();
-        RespondToBoost();
+        if (controlActive)
+        {
+            RotatePlayer();
+            RespondToBoost();
+        }
+    }
+
+    public void DisableControl()
+    {
+        controlActive = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
