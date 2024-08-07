@@ -20,6 +20,7 @@ public class FinishLine : MonoBehaviour
             for (int i = 0; i < finishEffect.Length; i++)
                 finishEffect.ElementAt(i).Play();
             GetComponent<AudioSource>().Play();
+            FindObjectOfType<PlayerController>().DisableControl();
             playedSFX = true;
             Invoke(nameof(ReloadScene), delayUntilSceneReload);
         }
