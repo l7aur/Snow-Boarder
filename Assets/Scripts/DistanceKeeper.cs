@@ -19,7 +19,8 @@ public class DistanceKeeper : MonoBehaviour
 
     void Update()
     {
-        distanceTravelled += playerController.GetCurrentSpeed() * clock.GetCurrentTime() / 10000f;
+        if(playerController.GetControlActive())
+            distanceTravelled += playerController.GetCurrentSpeed() * clock.GetCurrentTime() / 10000f;
     }
 
     public float GetCurrentTravelledDistance() { return Mathf.RoundToInt(distanceTravelled); }

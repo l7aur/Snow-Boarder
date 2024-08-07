@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] const float torqueAmount = 5f;
     [SerializeField] const float boostSpeed = 0.5f;
     [SerializeField] const float baseSpeed = 20f;
 
@@ -12,10 +11,14 @@ public class PlayerController : MonoBehaviour
 
     private bool controlActive = true;
 
+    void Awake()
+    {
+        sf2D = FindObjectOfType<SurfaceEffector2D>();
+    }
+
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
-        sf2D = FindObjectOfType<SurfaceEffector2D>(); //works only because there is only one surface effector component in the scene
     }
 
     void Update()
@@ -57,11 +60,12 @@ public class PlayerController : MonoBehaviour
         if (controlActive)
         {
             if (UnityEngine.Input.GetKey(KeyCode.A))
-                rb2D.AddTorque((torqueAmount + Random.Range(0f, 15f)) * sf2D.speed / (sf2D.speed - 1f));
-            else if (UnityEngine.Input.GetKey(KeyCode.D))
-                rb2D.AddTorque(-(torqueAmount + Random.Range(0f, 15f)) * sf2D.speed / (sf2D.speed - 1f));
+                rb2D.totalTorque = Random.Range(0f, 7.5f);
+            if (UnityEngine.Input.GetKey(KeyCode.D))
+                rb2D.totalTorque = -Random.Range(0f, 7.5f);
         }
     }
 
     public float GetCurrentSpeed() { return sf2D.speed; }
+    public bool GetControlActive() { return controlActive; }
 }
